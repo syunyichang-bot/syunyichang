@@ -313,6 +313,31 @@ li.apa .tags{padding-left:2em;margin-top:8px}
   .cite-apa{font-size:16.5px;padding-left:1.4em;text-indent:-1.4em}
   li.apa .tags{padding-left:1.4em}
 }
+
+/* light colour blocks per type */
+:root{
+  --c-journal:#eef4fc; --c-journal-line:#9dbbe6;
+  --c-conf:#fdf5e6;    --c-conf-line:#e6c27e;
+  --c-proj:#edf7f1;    --c-proj-line:#93cbaa;
+  --c-advise:#f4f0fb;  --c-advise-line:#bba8e0;
+}
+ol.list{display:flex;flex-direction:column;gap:10px}
+ol.list li.apa{border-bottom:0;border-radius:10px;padding:16px 20px;border-left:4px solid transparent}
+li.t-journal{background:var(--c-journal);border-left-color:var(--c-journal-line)!important}
+li.t-conf{background:var(--c-conf);border-left-color:var(--c-conf-line)!important}
+li.t-proj{background:var(--c-proj);border-left-color:var(--c-proj-line)!important}
+li.t-advise{background:var(--c-advise);border-left-color:var(--c-advise-line)!important}
+li.apa .tg{background:rgba(255,255,255,.7)}
+li.t-journal .tg.type{border-color:var(--c-journal-line);color:#3d6aa8}
+li.t-conf .tg.type{border-color:var(--c-conf-line);color:#9a6a12}
+li.t-proj .tg.type{border-color:var(--c-proj-line);color:#2f7a52}
+.tabs .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.dot.d-journal{background:var(--c-journal-line)}
+.dot.d-conf{background:var(--c-conf-line)}
+.dot.d-proj{background:var(--c-proj-line)}
+@media (max-width: 640px){
+  ol.list li.apa{padding:14px 14px 14px 12px}
+}
 </style>
 </head>
 <body>
@@ -409,8 +434,8 @@ li.apa .tags{padding-left:2em;margin-top:8px}
   <section class="block" id="advising">
     <div class="head"><span class="idx">04</span><h2>指導論文</h2><span class="note">指導碩士論文・2 篇</span></div>
     <ol class="list adv-list">
-      <li class="apa"><div><p class="cite-apa">吳帷軒（2026）。<em>空軍北部志願役士官兵的組織認同與留任意願之研究：以軍隊社會工作為中介變項</em>〔碩士論文〕。玄奘大學。</p><div class="tags"><span class="tg">碩士班</span><span class="tg">#社會工作實務</span></div></div></li>
-      <li class="apa"><div><p class="cite-apa">鍾美麗（2026）。<em>實施延長照顧服務經驗之研究：以新竹縣公立幼兒園之延長照顧服務人員為例</em>〔碩士論文〕。玄奘大學。</p><div class="tags"><span class="tg">碩士在職專班</span><span class="tg">#社會工作實務</span><span class="tg">#階級與教育</span></div></div></li>
+      <li class="apa t-advise"><div><p class="cite-apa">吳帷軒（2026）。<em>空軍北部志願役士官兵的組織認同與留任意願之研究：以軍隊社會工作為中介變項</em>〔碩士論文〕。玄奘大學。</p><div class="tags"><span class="tg">碩士班</span><span class="tg">#社會工作實務</span></div></div></li>
+      <li class="apa t-advise"><div><p class="cite-apa">鍾美麗（2026）。<em>實施延長照顧服務經驗之研究：以新竹縣公立幼兒園之延長照顧服務人員為例</em>〔碩士論文〕。玄奘大學。</p><div class="tags"><span class="tg">碩士在職專班</span><span class="tg">#社會工作實務</span><span class="tg">#階級與教育</span></div></div></li>
     </ol>
   </section>
 
@@ -539,7 +564,7 @@ const tabsEl = document.getElementById("tabs"), filtersEl = document.getElementB
 TABS.forEach(([k,label])=>{
   const b=document.createElement("button"); b.type="button"; b.setAttribute("role","tab"); b.id="tab-"+k;
   const n = k==="all"?WORKS.length:WORKS.filter(w=>w.type===k).length;
-  b.innerHTML=label+'<span class="c">'+n+'</span>';
+  b.innerHTML=(k==="all"?"":'<i class="dot d-'+k+'"></i>')+label+'<span class="c">'+n+'</span>';
   b.onclick=()=>{state.tab=k;render()}; tabsEl.appendChild(b);
 });
 Object.entries(THEMES).forEach(([k,label])=>{
@@ -557,11 +582,11 @@ function render(){
   metaEl.textContent = "> 顯示 "+rows.length+" / "+WORKS.length+" 筆" + (state.theme?"　主題："+THEMES[state.theme]:"") + (state.q?"　關鍵字："+state.q:"");
   listEl.innerHTML = rows.length ? rows.map((w,i)=>{
     const tags=[];
-    if(state.tab==="all") tags.push('<span class="tg">'+TYPE_LABEL[w.type]+'</span>');
+    if(state.tab==="all") tags.push('<span class="tg type">'+TYPE_LABEL[w.type]+'</span>');
     (w.idx||[]).forEach(x=>tags.push('<span class="tg '+(x==="TSSCI"?"idx":"acc")+'">'+esc(x)+'</span>'));
     if(w.intl) tags.push('<span class="tg idx">International</span>');
     w.th.forEach(t=>tags.push('<span class="tg">#'+THEMES[t]+'</span>'));
-    return '<li class="apa'+(w.en?' en':'')+'" style="animation-delay:'+(reduce?0:Math.min(i,10)*30)+'ms"><div>'+
+    return '<li class="apa t-'+w.type+(w.en?' en':'')+'" style="animation-delay:'+(reduce?0:Math.min(i,10)*30)+'ms"><div>'+
       '<p class="cite-apa">'+w.c+'</p>'+
       '<div class="tags">'+tags.join("")+'</div></div></li>';
   }).join("") : '<li class="empty">找不到符合的項目，試試其他關鍵字或清除篩選。</li>';
