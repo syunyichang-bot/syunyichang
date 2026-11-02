@@ -213,6 +213,94 @@ footer{padding:40px 0 48px;font-family:var(--font-mono);font-size:12px;color:var
   .stat .n{font-size:32px}
   .lens-panel{padding:22px}
 }
+
+/* ===== Readability scale: larger body text, tuned for phone / tablet / desktop ===== */
+body{font-size:17px;line-height:1.85}
+.kicker{font-size:14px}
+.hero .en{font-size:16px}
+.typer{font-size:clamp(16px,2vw,19px)}
+.hint{font-size:14.5px}
+.portrait figcaption{font-size:13.5px}
+.bar nav a{font-size:15px}
+.stat .l{font-size:15.5px;line-height:1.6}
+.head .note{font-size:15px}
+.prose p{font-size:17.5px;line-height:1.95}
+.chip{font-size:15.5px;padding:5px 15px}
+.quote cite{font-size:14px}
+.lens-panel .tag{font-size:13px}
+.lens-panel p{font-size:17px}
+.lens-panel ul{font-size:16.5px}
+.btn{font-size:15.5px;padding:9px 18px}
+.venn text{font-size:24px}
+.venn text.sm{font-size:15px}
+.venn .core{font-size:17px}
+.card .t{font-size:13px}
+.card h3{font-size:24px}
+.card p{font-size:16.5px;line-height:1.8}
+.tabs button{font-size:15.5px;padding:8px 16px}
+.tabs button .c{font-size:13px}
+.search input{font-size:16px;padding:10px 16px 10px 40px}
+.filters button{font-size:15px;padding:7px 16px}
+.result-meta{font-size:14px}
+.yr{font-size:14.5px}
+.ttl{font-size:18px;line-height:1.7}
+.src{font-size:15.5px;line-height:1.7;margin-top:4px}
+.tg{font-size:13px;padding:1px 9px}
+.timeline .when{font-size:14px}
+.timeline .what{font-size:18.5px}
+.timeline .sub{font-size:16px}
+.box h3{font-size:14px}
+.box ul{font-size:16.5px}
+.contact p{font-size:17px}
+.lines{font-size:16.5px}
+.lines dt{font-size:13px}
+.copy{font-size:13px;padding:4px 12px}
+footer{font-size:13px}
+
+.card::before{opacity:0;transition:opacity .25s}
+.card:hover::before{opacity:1}
+
+/* tablet: keep photo beside the name, two-column cards */
+@media (min-width: 641px) and (max-width: 900px){
+  .hero .shell{grid-template-columns:minmax(0,1fr) 230px;gap:32px}
+  .portrait{justify-self:end;width:230px}
+  .concepts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .shell{padding:0 32px}
+}
+/* phone */
+@media (max-width: 640px){
+  body{font-size:17px}
+  .shell{padding:0 18px}
+  .hero{padding:88px 0 64px}
+  .portrait{justify-self:start;width:200px}
+  .bar nav a{padding:8px 12px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat{padding:18px}
+  .stat .n{font-size:34px}
+  section.block{padding-top:72px}
+  .head{margin-bottom:22px}
+  .head .note{margin-left:0;width:100%}
+  .prose p{font-size:17px}
+  .quote{font-size:22px}
+  .concepts{grid-template-columns:1fr}
+  .venn{max-width:360px}
+  .lens-panel{padding:22px 20px}
+  .toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+  .search{flex:none;width:100%}
+  .tabs{width:100%;min-width:0}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;border-radius:999px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:0 0 auto;min-height:40px}
+  .filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -18px 18px;padding:0 18px}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:0 0 auto;min-height:40px}
+  ol.list li{grid-template-columns:1fr;gap:4px;padding:18px 2px}
+  .ttl{font-size:17.5px}
+  .timeline .what{font-size:18px}
+  .contact{padding:26px 20px}
+  .lines div{grid-template-columns:1fr auto;gap:2px 10px}
+  .lines dt{grid-column:1 / -1}
+}
 </style>
 </head>
 <body>
@@ -298,7 +386,7 @@ footer{padding:40px 0 48px;font-family:var(--font-mono);font-size:12px;color:var
       <div class="tabs" role="tablist" id="tabs"></div>
       <label class="search" for="q">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="搜尋題目或刊物，例如：AI、跨性別、新住民">
+        <input id="q" type="search" placeholder="搜尋題目或刊物，例如：新住民">
       </label>
     </div>
     <div class="filters" id="filters"></div>
@@ -441,7 +529,7 @@ const panel=document.getElementById("lensPanel");
 Object.entries(LENS).forEach(([k,o])=>{document.getElementById("cnt-"+k).textContent=WORKS.filter(w=>w.th.includes(o.th)).length+" 項"});
 function showLens(k){
   document.querySelectorAll(".venn .ring").forEach(g=>g.classList.toggle("on",g.dataset.k===k));
-  if(!k){panel.innerHTML='<div class="tag">LENS / INTERSECTIONALITY</div><h3>交織性觀點</h3><p>階級、族群與性別不是三條平行線，而是在每個人的生命中交會。我的研究從這些交會處出發，關注結構邊緣者如何把限制轉化為能動性。</p><p style="color:var(--muted);font-size:14px">點選左邊任一個圓圈，查看相關研究。</p>';return}
+  if(!k){panel.innerHTML='<div class="tag">LENS / INTERSECTIONALITY</div><h3>交織性觀點</h3><p>階級、族群與性別不是三條平行線，而是在每個人的生命中交會。我的研究從這些交會處出發，關注結構邊緣者如何把限制轉化為能動性。</p><p style="color:var(--muted);font-size:14px">點選任一個圓圈，查看相關研究。</p>';return}
   const o=LENS[k], items=WORKS.filter(w=>w.th.includes(o.th)).slice(0,3);
   panel.innerHTML='<div class="tag">'+o.tag+'</div><h3>'+o.name+'</h3><p>'+o.text+'</p><ul>'+items.map(w=>'<li>'+esc(w.t)+'</li>').join("")+'</ul><button class="btn" type="button" id="goWorks">看全部相關著作 →</button>';
   document.getElementById("goWorks").onclick=()=>{state.tab="all";state.theme=o.th;state.q="";qEl.value="";render();document.getElementById("works").scrollIntoView({behavior:reduce?"auto":"smooth"})};
