@@ -585,10 +585,9 @@ function render(){
     if(state.tab==="all") tags.push('<span class="tg type">'+TYPE_LABEL[w.type]+'</span>');
     (w.idx||[]).forEach(x=>tags.push('<span class="tg '+(x==="TSSCI"?"idx":"acc")+'">'+esc(x)+'</span>'));
     if(w.intl) tags.push('<span class="tg idx">International</span>');
-    w.th.forEach(t=>tags.push('<span class="tg">#'+THEMES[t]+'</span>'));
     return '<li class="apa t-'+w.type+(w.en?' en':'')+'" style="animation-delay:'+(reduce?0:Math.min(i,10)*30)+'ms"><div>'+
       '<p class="cite-apa">'+w.c+'</p>'+
-      '<div class="tags">'+tags.join("")+'</div></div></li>';
+      (tags.length?'<div class="tags">'+tags.join("")+'</div>':'')+'</div></li>';
   }).join("") : '<li class="empty">找不到符合的項目，試試其他關鍵字或清除篩選。</li>';
 }
 render();
