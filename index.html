@@ -464,9 +464,6 @@ const WORKS = [
   {type:"conf", y:"2024.07", t:"Trans-Cultural Population and Trans-Cultural Education: Embracing Ambiguous Heritage", s:"Wang, Y. H., & Chang, S. Y.", v:"International conference", p:"London, UK", intl:true, th:["imm","cls"]},
   {type:"conf", y:"2024.06", t:"人工智慧在社會工作領域的運用：數位素養與基本能力初探", s:"張訓譯", v:"多元教學理論與實踐國際研討會", p:"玄奘大學，新竹市", th:["ai","sw"]},
   {type:"conf", y:"2024.03", t:"中高齡新住民的醫療通譯困境：從社會排除論的觀點分析", s:"張訓譯", v:"《高齡健康與自我照顧》座談會暨研討會", p:"臺灣健康照顧社會工作學會，臺中市", th:["imm","sw"]},
-  // 指導碩士論文
-  {type:"advise", y:"2026", t:"空軍北部志願役士官兵的組織認同與留任意願之研究：以軍隊社會工作為中介變項", s:"研究生：吳帷軒", v:"玄奘大學社會工作學系碩士班 碩士論文", th:["sw"]},
-  {type:"advise", y:"2026", t:"實施延長照顧服務經驗之研究：以新竹縣公立幼兒園之延長照顧服務人員為例", s:"研究生：鍾美麗", v:"玄奘大學社會工作學系碩士在職專班 碩士論文", th:["sw","cls"]},
   // 研究計畫
   {type:"proj", y:"2026–27", t:"從焦慮到賦能：TBL 任務導向學習融入社會統計之教學實踐", s:"主持人", v:"教育部教學實踐研究計畫", p:"MOE-115-TPRSL-1039-004Y1", th:["cls"]},
   {type:"proj", y:"2026", t:"智性戀的概念與內涵之文獻分析研究", s:"主持人", v:"玄奘大學校內研究計畫", p:"HCU-114-02-A-01", th:["gen"]},
@@ -488,7 +485,7 @@ const TYPING = ["新住民","多元性別","文化資本","教育不平等","社
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------- works explorer ---------- */
-const TABS = [["all","全部"],["journal","期刊論文"],["conf","研討會"],["proj","研究計畫"],["advise","指導論文"]];
+const TABS = [["all","全部"],["journal","期刊論文"],["conf","研討會"],["proj","研究計畫"]];
 let state = {tab:"all", theme:null, q:""};
 const tabsEl = document.getElementById("tabs"), filtersEl = document.getElementById("filters"),
       listEl = document.getElementById("list"), metaEl = document.getElementById("meta"), qEl = document.getElementById("q");
