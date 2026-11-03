@@ -544,43 +544,45 @@ showLens(null);
   setTimeout(tick,600);
 })();
 
-/* ---------- woven strands (hero) ---------- */
+/* ---------- light field (hero canvas) ---------- */
 (function(){
   const cv=document.getElementById("weave"), ctx=cv.getContext("2d"), hero=document.getElementById("top");
-  const strands=[
-    {c:[62,79,163],  y:.30, amp:.13, f:1.15, ph:0.0, label:"階級"},
-    {c:[14,131,121], y:.50, amp:.16, f:0.95, ph:2.1, label:"族群"},
-    {c:[194,63,116], y:.68, amp:.12, f:1.30, ph:4.0, label:"性別"}
-  ];
-  let W,H,dpr,t=0,draw=reduce?1:0,mouse={x:-1,y:-1,on:false},pull={x:0,y:0,k:0};
-  function size(){dpr=Math.min(devicePixelRatio||1,2);W=hero.clientWidth;H=hero.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
-  function yAt(s,x,j){
-    const u=x/W, base=s.y*H;
-    let y=base+Math.sin(u*Math.PI*2*s.f+s.ph+t*0.006+j*0.35)*s.amp*H+Math.sin(u*9+t*0.004+j)*6;
-    // converge toward a weave point behind the portrait
-    const cx=W*0.74, cy=H*0.46, d=Math.exp(-Math.pow((x-cx)/(W*0.16),2));
-    y=y*(1-d*0.75)+cy*(d*0.75)+j*3*(1-d);
-    if(pull.k>0){const dx=x-pull.x, g=Math.exp(-(dx*dx)/(2*140*140));y+=(pull.y-y)*g*0.35*pull.k}
-    return y;
+  let W,H,dpr,pts=[], light={x:0,y:0,tx:0,ty:0,active:false}, t=0;
+  function size(){
+    dpr=Math.min(devicePixelRatio||1,2); W=hero.clientWidth; H=hero.clientHeight;
+    cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n=Math.round(Math.min(150, W*H/7000)); pts=[];
+    for(let k=0;k<n;k++) pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,r:Math.random()*1.4+.6,warm:Math.random()<.12});
+    light.x=light.tx=W*.62; light.y=light.ty=H*.45;
   }
   function frame(){
-    t++; if(draw<1) draw=Math.min(1,draw+0.012);
-    pull.k+=((mouse.on?1:0)-pull.k)*0.06; if(mouse.on){pull.x+=(mouse.x-pull.x)*0.12;pull.y+=(mouse.y-pull.y)*0.12}
+    t+=1;
+    if(!light.active){light.tx=W*(.5+.3*Math.sin(t/260)); light.ty=H*(.5+.28*Math.sin(t/190+1));}
+    light.x+=(light.tx-light.x)*.08; light.y+=(light.ty-light.y)*.08;
     ctx.clearRect(0,0,W,H);
-    const xEnd=W*(reduce?1:(0.08+0.92*easeOut(draw)));
-    strands.forEach(s=>{
-      for(let j=0;j<4;j++){
-        ctx.beginPath();
-        for(let x=0;x<=xEnd;x+=8){const y=yAt(s,x,j); x?ctx.lineTo(x,y):ctx.moveTo(x,y)}
-        ctx.strokeStyle="rgba("+s.c.join(",")+","+(j===0?.55:.16)+")";
-        ctx.lineWidth=j===0?1.8:1; ctx.stroke();
-      }
-    });
+    const R=Math.max(180,Math.min(W,H)*.38);
+    const g=ctx.createRadialGradient(light.x,light.y,0,light.x,light.y,R);
+    g.addColorStop(0,"rgba(242,184,75,0.22)"); g.addColorStop(1,"rgba(242,184,75,0)");
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    for(const p of pts){
+      if(!reduce){p.x+=p.vx;p.y+=p.vy; if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1;}
+      const d=Math.hypot(p.x-light.x,p.y-light.y); p.l=Math.max(0,1-d/R);
+    }
+    for(let a=0;a<pts.length;a++){const p=pts[a]; if(p.l<=0) continue;
+      for(let b=a+1;b<pts.length;b++){const q=pts[b]; if(q.l<=0) continue;
+        const d=Math.hypot(p.x-q.x,p.y-q.y); if(d<120){
+          ctx.strokeStyle="rgba(205,135,20,"+(Math.min(p.l,q.l)*(1-d/120)*.85).toFixed(3)+")";
+          ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();}}}
+    for(const p of pts){
+      const base=p.warm?"205,135,20":"90,110,140";
+      const a=.22+p.l*.78;
+      ctx.fillStyle="rgba("+(p.l>.15?"205,135,20":base)+","+a.toFixed(3)+")";
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r+p.l*1.8,0,Math.PI*2); ctx.fill();
+    }
     if(!reduce) requestAnimationFrame(frame);
   }
-  function easeOut(k){return 1-Math.pow(1-k,3)}
-  hero.addEventListener("pointermove",e=>{const r=hero.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.on=true;if(pull.k<0.05){pull.x=mouse.x;pull.y=mouse.y}});
-  hero.addEventListener("pointerleave",()=>{mouse.on=false});
+  hero.addEventListener("pointermove",e=>{const r=hero.getBoundingClientRect(); light.tx=e.clientX-r.left; light.ty=e.clientY-r.top; light.active=true});
+  hero.addEventListener("pointerleave",()=>{light.active=false});
   addEventListener("resize",()=>{size(); if(reduce) frame()});
   size(); frame();
 })();
