@@ -355,6 +355,21 @@ li.t-proj .tg.type{border-color:var(--c-proj-line);color:#2f7a52}
 .pdf-link{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;font-weight:500;color:#2f5f9e;background:#fff;border:1px solid var(--c-journal-line);border-radius:999px;padding:2px 12px;text-decoration:none;transition:background .2s,color .2s}
 .pdf-link:hover{background:#2f5f9e;color:#fff;border-color:#2f5f9e}
 @media (max-width: 640px){.pdf-link{padding:5px 14px;font-size:14px}}
+
+/* works rows: labels stacked on the left, citation in the middle, full-text link at the end */
+#list li.apa{display:grid;grid-template-columns:118px minmax(0,1fr) auto;gap:6px 18px;align-items:start}
+#list .meta-col{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding-top:3px}
+#list .meta-col .tg{white-space:normal;line-height:1.5;max-width:100%}
+#list .meta-col:empty{display:none}
+#list li.apa .cite-apa{grid-column:2}
+#list .link-col{grid-column:3;padding-top:2px}
+#list .link-col:empty{display:none}
+#list .pdf-link{white-space:nowrap}
+@media (max-width: 640px){
+  #list li.apa{grid-template-columns:minmax(0,1fr);gap:8px}
+  #list .meta-col{flex-direction:row;flex-wrap:wrap;padding-top:0}
+  #list li.apa .cite-apa,#list .link-col{grid-column:1}
+}
 </style>
 </head>
 <body>
@@ -595,9 +610,10 @@ function render(){
     if(state.tab==="all") tags.push('<span class="tg type">'+TYPE_LABEL[w.type]+'</span>');
     (w.idx||[]).forEach(x=>tags.push('<span class="tg '+(x==="TSSCI"?"idx":"acc")+'">'+esc(x)+'</span>'));
     if(w.intl) tags.push('<span class="tg idx">International</span>');
-    return '<li class="apa t-'+w.type+(w.en?' en':'')+'" style="animation-delay:'+(reduce?0:Math.min(i,10)*30)+'ms"><div>'+
+    return '<li class="apa t-'+w.type+(w.en?' en':'')+'" style="animation-delay:'+(reduce?0:Math.min(i,10)*30)+'ms">'+
+      '<div class="meta-col">'+tags.join("")+'</div>'+
       '<p class="cite-apa">'+w.c+'</p>'+
-      ((tags.length||w.pdf)?'<div class="tags">'+tags.join("")+(w.pdf?'<a class="pdf-link" href="'+w.pdf+'" target="_blank" rel="noopener">閱讀全文 PDF ↗</a>':'')+'</div>':'')+'</div></li>';
+      '<div class="link-col">'+(w.pdf?'<a class="pdf-link" href="'+w.pdf+'" target="_blank" rel="noopener">閱讀全文 PDF ↗</a>':'')+'</div></li>';
   }).join("") : '<li class="empty">找不到符合的項目，試試其他關鍵字或清除篩選。</li>';
 }
 render();
