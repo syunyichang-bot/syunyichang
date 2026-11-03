@@ -253,6 +253,43 @@ footer{margin-top:104px;padding:28px 0 40px;border-top:1px solid var(--ink);font
   .timeline li{grid-template-columns:1fr;gap:2px}
 }
 @media (prefers-reduced-motion: reduce){.caret{animation:none}}
+
+/* compact hero so the figures band is visible on first load */
+.hero{padding-top:84px}
+.hero-grid{gap:40px;padding-bottom:28px;align-items:center}
+.affil{font-size:15.5px;margin-bottom:2px}
+.hero h1{font-size:clamp(56px,7vw,92px)}
+.name-en{margin-top:6px}
+.thesis{margin-top:14px;font-size:17px;line-height:1.75}
+.typer{margin-top:14px;padding:8px 14px;font-size:15px}
+.contact{display:flex;flex-wrap:wrap;gap:6px 0;margin-top:16px;max-width:none;border-top:0}
+.contact div{display:flex;align-items:center;gap:8px;padding:4px 18px 4px 0;margin-right:18px;border-bottom:0;border-right:1px solid var(--rule)}
+.contact div:last-child{border-right:0;margin-right:0}
+.contact dt{font-size:14px}
+.contact dd{font-size:16px}
+.portrait{width:min(300px,100%)}
+.fig{padding:14px 22px 12px}
+.fig .n{font-size:36px}
+.fig .l{margin-top:2px}
+@media (max-width: 640px){
+  .hero{padding-top:80px}
+  .hero-grid{position:relative;gap:0;padding-bottom:24px}
+  .portrait{position:absolute;top:4px;right:0;width:92px;justify-self:auto}
+  .portrait .frame{border-radius:4px}
+  .affil{max-width:calc(100% - 104px)}
+  .hero h1{font-size:60px}
+  .contact{display:grid;gap:0;margin-top:14px}
+  .contact div{border-right:0;margin-right:0;padding:6px 0;border-bottom:1px solid var(--rule)}
+  .contact div:first-child{border-top:1px solid var(--rule)}
+  .contact dt{min-width:52px}
+  .fig{padding:12px 14px 10px}
+  .fig .n{font-size:30px}
+}
+
+.hero-grid{grid-template-columns:minmax(0,1fr) 300px}
+.contact{gap:6px 28px}
+.contact div{padding:2px 0;margin-right:0;border-right:0}
+@media (max-width: 640px){.hero-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
