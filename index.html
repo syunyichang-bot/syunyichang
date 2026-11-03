@@ -351,6 +351,10 @@ li.t-proj .tg.type{border-color:var(--c-proj-line);color:#2f7a52}
   .hero-contact div{grid-template-columns:60px minmax(0,1fr)}
   .hero-contact dd{font-size:16px}
 }
+
+.pdf-link{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;font-weight:500;color:#2f5f9e;background:#fff;border:1px solid var(--c-journal-line);border-radius:999px;padding:2px 12px;text-decoration:none;transition:background .2s,color .2s}
+.pdf-link:hover{background:#2f5f9e;color:#fff;border-color:#2f5f9e}
+@media (max-width: 640px){.pdf-link{padding:5px 14px;font-size:14px}}
 </style>
 </head>
 <body>
@@ -491,19 +495,19 @@ const WORKS = [
    c:'張訓譯（<b class="acc-y">已接受</b>）。新住民志願服務與多元文化韌性之探討。<em>社區發展季刊</em>。'},
   {type:"journal", y:"已接受", t:"ChatGPT與大學教師專業能動性：知識權威、角色定位與倫理困境之文獻綜述", th:["ai"],
    c:'張訓譯（<b class="acc-y">已接受</b>）。ChatGPT與大學教師專業能動性：知識權威、角色定位與倫理困境之文獻綜述。<em>臺灣教育評論月刊</em>。'},
-  {type:"journal", y:"2026", t:"臺灣新住民及子女的跨文化環境、社會參與及自我認同之相關研究", th:["imm"],
+  {type:"journal", pdf:"https://drive.google.com/file/d/1ESWcNi5tTazQJI_RN-gjXU3KLiO8VN7Q/view", y:"2026", t:"臺灣新住民及子女的跨文化環境、社會參與及自我認同之相關研究", th:["imm"],
    c:'張訓譯、王雅玄（2026）。臺灣新住民及子女的跨文化環境、社會參與及自我認同之相關研究。<em>國立屏東大學學報：人文社會類，11</em>，1–41。'},
-  {type:"journal", y:"2026", t:"非二元者的跨場域性別協商與認同實踐之研究", idx:["ACI"], th:["gen"],
+  {type:"journal", pdf:"https://drive.google.com/file/d/1P26dJDnTmC6dM3W9dDJ9mV0nPiHi4UK8/view", y:"2026", t:"非二元者的跨場域性別協商與認同實踐之研究", idx:["ACI"], th:["gen"],
    c:'張訓譯（2026）。非二元者的跨場域性別協商與認同實踐之研究。<em>性學研究，16</em>(1)，26–50。'},
-  {type:"journal", y:"2025", t:"高等教育導師制度的儀式化與象徵性之研究", idx:["ACI"], th:["cls"],
+  {type:"journal", pdf:"https://drive.google.com/file/d/1-q9Jm0RaCo8MFDr54-3yCQGwq5xoKmEx/view", y:"2025", t:"高等教育導師制度的儀式化與象徵性之研究", idx:["ACI"], th:["cls"],
    c:'張訓譯（2025）。高等教育導師制度的儀式化與象徵性之研究。<em>嶺東通識教育研究學刊，11</em>(2)，81–109。'},
-  {type:"journal", y:"2025", t:"我不是那個意思：社會工作者的微歧視行為對服務關係之衝擊", idx:["ACI"], th:["sw"],
+  {type:"journal", pdf:"https://drive.google.com/file/d/19RZCqAnIiBoyQmFeqdkidXaoggJeLYPn/view", y:"2025", t:"我不是那個意思：社會工作者的微歧視行為對服務關係之衝擊", idx:["ACI"], th:["sw"],
    c:'張訓譯（2025）。我不是那個意思：社會工作者的微歧視行為對服務關係之衝擊。<em>社會發展研究學刊，36</em>，97–117。'},
-  {type:"journal", y:"2025", t:"社會工作者在AI時代應具備的數位素養與核心能力", th:["ai","sw"],
+  {type:"journal", pdf:"https://drive.google.com/file/d/1Ppeb0Mn-OfBqp1aZ2jy1yUto9XO56my5/view", y:"2025", t:"社會工作者在AI時代應具備的數位素養與核心能力", th:["ai","sw"],
    c:'張訓譯（2025）。社會工作者在AI時代應具備的數位素養與核心能力。<em>社區發展季刊，190</em>，547–555。'},
-  {type:"journal", y:"2024", t:"再現我的遊戲童年：不同世代科學課程性別差異之交織性研究", idx:["TSSCI"], th:["gen","cls"],
+  {type:"journal", pdf:"https://drive.google.com/file/d/1-Plf-Vere2BclANUnZwuxrQeMlzDBd_E/view", y:"2024", t:"再現我的遊戲童年：不同世代科學課程性別差異之交織性研究", idx:["TSSCI"], th:["gen","cls"],
    c:'王雅玄、張訓譯（2024）。再現我的遊戲童年：不同世代科學課程性別差異之交織性研究。<em>課程與教學季刊，27</em>(2)，33–62。'},
-  {type:"journal", y:"2024", t:"從高等教育到工作場域：反思社會工作者的專業實踐", th:["sw"],
+  {type:"journal", pdf:"https://drive.google.com/file/d/1QHyzJoWN4aI1VOgDc2b-_YwhABZ9nNed/view", y:"2024", t:"從高等教育到工作場域：反思社會工作者的專業實踐", th:["sw"],
    c:'張訓譯（2024）。從高等教育到工作場域：反思社會工作者的專業實踐。<em>社區發展季刊，186</em>，234–242。'},
 
   // ===== 學術研討會（APA 第 7 版：論文發表）=====
@@ -593,7 +597,7 @@ function render(){
     if(w.intl) tags.push('<span class="tg idx">International</span>');
     return '<li class="apa t-'+w.type+(w.en?' en':'')+'" style="animation-delay:'+(reduce?0:Math.min(i,10)*30)+'ms"><div>'+
       '<p class="cite-apa">'+w.c+'</p>'+
-      (tags.length?'<div class="tags">'+tags.join("")+'</div>':'')+'</div></li>';
+      ((tags.length||w.pdf)?'<div class="tags">'+tags.join("")+(w.pdf?'<a class="pdf-link" href="'+w.pdf+'" target="_blank" rel="noopener">閱讀全文 PDF ↗</a>':'')+'</div>':'')+'</div></li>';
   }).join("") : '<li class="empty">找不到符合的項目，試試其他關鍵字或清除篩選。</li>';
 }
 render();
