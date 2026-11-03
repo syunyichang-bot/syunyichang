@@ -290,6 +290,17 @@ footer{margin-top:104px;padding:28px 0 40px;border-top:1px solid var(--ink);font
 .contact{gap:6px 28px}
 .contact div{padding:2px 0;margin-right:0;border-right:0}
 @media (max-width: 640px){.hero-grid{grid-template-columns:1fr}}
+
+/* vertical centring + long rating notes above the citation */
+#list li.apa{align-items:center}
+#list .meta-col{padding-top:0}
+#list .cite-col{grid-column:2;min-width:0}
+#list .notes{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+#list .link-col{padding-top:0}
+@media (max-width: 640px){
+  #list li.apa{align-items:start}
+  #list .cite-col{grid-column:1}
+}
 </style>
 </head>
 <body>
@@ -538,11 +549,13 @@ function render(){
   listEl.innerHTML=rows.length?rows.map(w=>{
     const tags=[];
     if(state.tab==="all") tags.push('<span class="tg type">'+TYPE_LABEL[w.type]+'</span>');
-    (w.idx||[]).forEach(x=>tags.push('<span class="tg '+(x==="TSSCI"?"idx":"acc")+'">'+x+'</span>'));
+    const SHORT=["TSSCI","SSCI","THCI","ACI","Scopus"];
+    (w.idx||[]).filter(x=>SHORT.includes(x)).forEach(x=>tags.push('<span class="tg '+(x==="TSSCI"?"idx":"acc")+'">'+x+'</span>'));
+    const notes=(w.idx||[]).filter(x=>!SHORT.includes(x));
     if(w.intl) tags.push('<span class="tg idx">International</span>');
     return '<li class="apa t-'+w.type+(w.en?' en':'')+'">'+
       '<div class="meta-col">'+tags.join("")+'</div>'+
-      '<p class="cite-apa">'+w.c+'</p>'+
+      '<div class="cite-col">'+(notes.length?'<div class="notes">'+notes.map(x=>'<span class="tg acc">'+x+'</span>').join("")+'</div>':'')+'<p class="cite-apa">'+w.c+'</p></div>'+
       '<div class="link-col">'+(w.pdf?'<a class="pdf-link" href="'+w.pdf+'" target="_blank" rel="noopener">閱讀全文 PDF '+PDF_ICON+'</a>':'')+'</div></li>';
   }).join(""):'<li class="empty">找不到符合的項目，請換個關鍵字或取消主題篩選。</li>';
 }
