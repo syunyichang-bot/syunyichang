@@ -338,6 +338,19 @@ li.t-proj .tg.type{border-color:var(--c-proj-line);color:#2f7a52}
 @media (max-width: 640px){
   ol.list li.apa{padding:14px 14px 14px 12px}
 }
+
+/* contact info in the hero */
+.hero-contact{margin:24px 0 0;display:grid;gap:8px;max-width:480px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:10px;padding:14px 18px;box-shadow:0 6px 24px rgba(15,26,43,.06)}
+.hero-contact div{display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;align-items:center}
+.hero-contact dt{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;color:var(--cool)}
+.hero-contact dd{margin:0;font-size:16.5px;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;word-break:break-all}
+.hero-contact a{color:var(--ink);text-decoration-color:var(--glow)}
+.hero .hint{margin-top:16px}
+@media (max-width: 640px){
+  .hero-contact{padding:12px 14px}
+  .hero-contact div{grid-template-columns:60px minmax(0,1fr)}
+  .hero-contact dd{font-size:16px}
+}
 </style>
 </head>
 <body>
@@ -351,7 +364,6 @@ li.t-proj .tg.type{border-color:var(--c-proj-line);color:#2f7a52}
       <a href="#works">著作與計畫</a>
       <a href="#advising">指導論文</a>
       <a href="#path">學經歷</a>
-      <a href="#contact">聯絡</a>
     </nav>
   </div>
   <div class="progress" id="progress"></div>
@@ -365,6 +377,11 @@ li.t-proj .tg.type{border-color:var(--c-proj-line);color:#2f7a52}
       <h1>張訓譯</h1>
       <div class="en">Syun-Yi Chang, Ph.D. · 助理教授</div>
       <div class="typer" aria-live="polite"><span class="k">research.focus</span> = "<span class="v" id="typed">新住民</span><span class="caret"></span>"</div>
+      <dl class="hero-contact" id="contact" aria-label="聯絡資訊">
+        <div><dt>EMAIL</dt><dd><a href="mailto:chang82@hcu.edu.tw">chang82@hcu.edu.tw</a><button class="copy" data-copy="chang82@hcu.edu.tw" type="button">複製</button></dd></div>
+        <div><dt>TEL</dt><dd>03-5302255 分機 1281</dd></div>
+        <div><dt>OFFICE</dt><dd>玄奘大學 圖書資訊大樓 502 室</dd></div>
+      </dl>
       <p class="hint">移動游標，照亮那些在縫隙中的人。</p>
     </div>
     <figure class="portrait" id="portrait">
@@ -453,18 +470,6 @@ li.t-proj .tg.type{border-color:var(--c-proj-line);color:#2f7a52}
         <div class="box"><h3>// 專業證書</h3><ul><li>教育部 AI 融入教學應用能力認證（證字第 EA11503012 號）</li></ul></div>
       </div>
     </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <div>
-      <h2>歡迎交流與合作</h2>
-      <p>研究合作、演講邀約或學生諮詢，都歡迎來信。</p>
-    </div>
-    <dl class="lines">
-      <div><dt>EMAIL</dt><dd><a href="mailto:chang82@hcu.edu.tw">chang82@hcu.edu.tw</a></dd><button class="copy" data-copy="chang82@hcu.edu.tw" type="button">複製</button></div>
-      <div><dt>TEL</dt><dd>03-5302255 分機 1281</dd><span></span></div>
-      <div><dt>OFFICE</dt><dd>玄奘大學 圖書資訊大樓 502 室</dd><span></span></div>
-    </dl>
   </section>
 
   <footer><span>© 張訓譯 · 30092 新竹市香山區玄奘路 48 號</span><span>last_updated = "2026-11-02"</span></footer>
