@@ -310,6 +310,15 @@ li.t-advise .tg.type{color:#5b3f9a;border-color:var(--t-advise-line);font-weight
   .adv-list li.apa{grid-template-columns:minmax(0,1fr);gap:8px;align-items:start}
   .adv-list .meta-col{flex-direction:row;flex-wrap:wrap}
 }
+
+/* contact stacked vertically: 信箱 / 電話 / 研究室 */
+.contact{display:grid;grid-template-columns:auto;gap:4px;margin-top:16px}
+.contact div{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;align-items:center;padding:1px 0;margin:0;border:0}
+.contact dd{font-size:16px}
+@media (max-width: 640px){
+  .contact div{border:0;padding:2px 0}
+  .contact div:first-child{border-top:0}
+}
 </style>
 </head>
 <body>
