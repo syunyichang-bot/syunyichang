@@ -319,6 +319,38 @@ li.t-advise .tg.type{color:#5b3f9a;border-color:var(--t-advise-line);font-weight
   .contact div{border:0;padding:2px 0}
   .contact div:first-child{border-top:0}
 }
+
+/* opening epigraph */
+.epigraph{margin:0 0 22px;max-width:560px;padding-left:16px;border-left:2px solid var(--rule-strong)}
+.epigraph blockquote{margin:0}
+.epigraph p{margin:0;font-family:var(--serif);font-size:17px;line-height:1.65;color:var(--ink2)}
+.epigraph p[lang="en"]{font-style:italic;font-weight:500;font-size:18px;color:var(--ink)}
+.epigraph figcaption{margin-top:6px;font-size:14px;color:var(--muted)}
+.hero{padding-top:78px}
+.hero h1{font-size:clamp(52px,6.4vw,84px)}
+@media (max-width: 640px){
+  .epigraph{margin-bottom:16px;max-width:calc(100% - 104px);padding-left:12px}
+  .epigraph p{font-size:15px}
+  .epigraph p[lang="en"]{font-size:16px}
+  .epigraph figcaption{font-size:13px}
+}
+
+.epigraph p[lang="en"]{font-family:Georgia,"Times New Roman","Noto Serif TC",serif}
+.epigraph{margin-bottom:12px}
+.epigraph figcaption{margin-top:3px}
+.hero{padding-top:74px}
+.hero h1{font-size:clamp(52px,6vw,80px)}
+.hero-grid{padding-bottom:22px}
+.thesis{margin-top:10px}
+.typer{margin-top:10px}
+.contact{margin-top:12px;gap:2px}
+@media (max-width: 640px){
+  .hero{padding-top:72px}
+  .hero h1{font-size:54px}
+  .thesis{font-size:16px;line-height:1.7}
+  .contact dd{font-size:15px}
+  .hero-grid{padding-bottom:18px}
+}
 </style>
 </head>
 <body>
@@ -342,6 +374,13 @@ li.t-advise .tg.type{color:#5b3f9a;border-color:var(--t-advise-line);font-weight
   <div class="shell">
     <div class="hero-grid">
       <div>
+        <figure class="epigraph">
+          <blockquote>
+            <p lang="en">I can’t say how I am unless you agree I am real</p>
+            <p>（我不能說我是誰，除非你同意我的真實存在）</p>
+          </blockquote>
+          <figcaption>非裔美國詩人作家 Amiri Baraka（1971:218）</figcaption>
+        </figure>
         <p class="affil">玄奘大學 社會工作學系 助理教授</p>
         <h1>張訓譯</h1>
         <div class="name-en">Syun-Yi Chang, Ph.D.</div>
