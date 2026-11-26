@@ -416,6 +416,22 @@ li.t-advise .tg.type{color:#5b3f9a;border-color:var(--t-advise-line);font-weight
   .hero-main .thesis,.hero-main .contact{margin-top:0}
   .hero-main .affil{margin-bottom:4px}
 }
+
+/* hero without the thesis line: one centred identity block */
+@media (min-width: 641px){
+  .hero-main{justify-content:center;gap:0;padding:0}
+  .hero-main .name-block{padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid var(--rule-strong);max-width:460px}
+  .hero-main .affil{font-size:16.5px;margin-bottom:10px;color:var(--ink2)}
+  .hero h1{font-size:clamp(60px,7vw,96px)}
+  .hero-main .name-en{font-size:clamp(20px,2vw,24px);margin-top:12px}
+  .hero-main .contact{gap:10px}
+  .hero-main .contact div{grid-template-columns:72px minmax(0,1fr)}
+  .hero-main .contact dt{font-size:15px}
+  .hero-main .contact dd{font-size:17px}
+}
+@media (max-width: 640px){
+  .name-block{padding-bottom:16px;margin-bottom:14px;border-bottom:1px solid var(--rule-strong)}
+}
 </style>
 </head>
 <body>
@@ -443,7 +459,6 @@ li.t-advise .tg.type{color:#5b3f9a;border-color:var(--t-advise-line);font-weight
         <h1>張訓譯</h1>
         <div class="name-en">Syun-Yi Chang, Ph.D.</div>
         </div>
-        <p class="thesis">以交織性觀點探討階級、族群與性別的關係，關注社會邊緣者如何在被看見與聽見的過程中，把生命的限制轉化為能動性。</p>
         <dl class="contact" id="contact" aria-label="聯絡資訊">
           <div><dt>信箱</dt><dd><a href="mailto:chang82@hcu.edu.tw">chang82@hcu.edu.tw</a><button class="copy" data-copy="chang82@hcu.edu.tw" type="button">複製</button></dd></div>
           <div><dt>電話</dt><dd>03-5302255 分機 1281</dd></div>
