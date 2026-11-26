@@ -501,7 +501,6 @@ li.t-advise .tg.type{color:#5b3f9a;border-color:var(--t-advise-line);font-weight
         <input id="q" type="search" placeholder="搜尋題目或刊物，例如：新住民">
       </label>
     </div>
-    <div class="filters" id="filters"></div>
     <div class="result-meta" id="meta"></div>
     <ol class="list" id="list"></ol>
   </section>
@@ -630,7 +629,7 @@ const STRAND = {cls:"#3e4fa3", imm:"#0e8379", gen:"#c23f74", ai:"#5b6b7a", sw:"#
 const TABS = [["all","全部"],["journal","期刊論文"],["conf","研討會"],["proj","研究計畫"]];
 const TYPE_LABEL = {journal:"期刊", conf:"研討會", proj:"計畫"};
 let state = {tab:"all", theme:null, q:""};
-const tabsEl=document.getElementById("tabs"), filtersEl=document.getElementById("filters"),
+const tabsEl=document.getElementById("tabs"),
       listEl=document.getElementById("list"), metaEl=document.getElementById("meta"), qEl=document.getElementById("q");
 TABS.forEach(([k,label])=>{
   const b=document.createElement("button"); b.type="button"; b.setAttribute("role","tab"); b.id="tab-"+k;
@@ -638,16 +637,10 @@ TABS.forEach(([k,label])=>{
   b.innerHTML=(k==="all"?"":'<i class="dot d-'+k+'"></i>')+label+'<span class="c">'+n+'</span>';
   b.onclick=()=>{state.tab=k;render()}; tabsEl.appendChild(b);
 });
-Object.entries(THEMES).forEach(([k,label])=>{
-  const b=document.createElement("button"); b.type="button"; b.id="th-"+k;
-  b.style.setProperty("--fc",STRAND[k]); b.innerHTML='<i></i>'+label;
-  b.onclick=()=>{state.theme=state.theme===k?null:k; render()}; filtersEl.appendChild(b);
-});
 qEl.addEventListener("input",()=>{state.q=qEl.value.trim().toLowerCase();render()});
 const PDF_ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>';
 function render(){
   tabsEl.querySelectorAll("button").forEach(b=>b.setAttribute("aria-selected", b.id==="tab-"+state.tab));
-  filtersEl.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed", b.id==="th-"+state.theme));
   const rows=WORKS.filter(w=>(state.tab==="all"||w.type===state.tab)&&(!state.theme||w.th.includes(state.theme))
     &&(!state.q||(w.t+w.c.replace(/<[^>]+>/g,"")).toLowerCase().includes(state.q)));
   metaEl.textContent="顯示 "+rows.length+" / "+WORKS.length+" 筆"+(state.theme?"，主題："+THEMES[state.theme]:"")+(state.q?"，關鍵字："+state.q:"");
