@@ -408,6 +408,14 @@ li.t-advise .tg.type{color:#5b3f9a;border-color:var(--t-advise-line);font-weight
 
 .portrait img{object-position:center top}
 @media (min-width: 1001px){.hero-aside .portrait img{object-position:center top}}
+
+/* hero text spread evenly beside the photo and quote */
+@media (min-width: 641px){
+  .hero-grid{align-items:stretch}
+  .hero-main{display:flex;flex-direction:column;justify-content:space-between;gap:20px;padding:4px 0}
+  .hero-main .thesis,.hero-main .contact{margin-top:0}
+  .hero-main .affil{margin-bottom:4px}
+}
 </style>
 </head>
 <body>
@@ -429,12 +437,13 @@ li.t-advise .tg.type{color:#5b3f9a;border-color:var(--t-advise-line);font-weight
   <canvas id="weave" aria-hidden="true"></canvas>
   <div class="shell">
     <div class="hero-grid">
-      <div>
+      <div class="hero-main">
+        <div class="name-block">
         <p class="affil">玄奘大學 社會工作學系 助理教授</p>
         <h1>張訓譯</h1>
         <div class="name-en">Syun-Yi Chang, Ph.D.</div>
+        </div>
         <p class="thesis">以交織性觀點探討階級、族群與性別的關係，關注社會邊緣者如何在被看見與聽見的過程中，把生命的限制轉化為能動性。</p>
-        <div class="typer" aria-live="polite"><span class="k">research.focus</span><span>=</span><span>"<span class="v" id="typed">新住民</span><span class="caret"></span>"</span></div>
         <dl class="contact" id="contact" aria-label="聯絡資訊">
           <div><dt>信箱</dt><dd><a href="mailto:chang82@hcu.edu.tw">chang82@hcu.edu.tw</a><button class="copy" data-copy="chang82@hcu.edu.tw" type="button">複製</button></dd></div>
           <div><dt>電話</dt><dd>03-5302255 分機 1281</dd></div>
@@ -656,20 +665,6 @@ function render(){
   }).join(""):'<li class="empty">找不到符合的項目，請換個關鍵字或取消主題篩選。</li>';
 }
 render();
-
-/* ---------- typing line ---------- */
-(function(){
-  const el=document.getElementById("typed"); if(reduce) return;
-  let i=0,ch=TYPING[0].length,del=true,wait=1800;
-  function tick(){
-    if(wait>0){wait-=80;return setTimeout(tick,80)}
-    if(del){ch--; if(ch<=0){del=false;i=(i+1)%TYPING.length}}
-    else{ch++; if(ch>=TYPING[i].length){del=true;wait=1800}}
-    el.textContent=TYPING[i].slice(0,Math.max(ch,0));
-    setTimeout(tick,del?55:110);
-  }
-  setTimeout(tick,600);
-})();
 
 /* ---------- light field (hero canvas) ---------- */
 (function(){
