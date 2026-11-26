@@ -496,10 +496,6 @@ li.t-advise .tg.type{color:#5b3f9a;border-color:var(--t-advise-line);font-weight
     <div class="head"><h2>著作與計畫</h2><span class="rule"></span></div>
     <div class="toolbar">
       <div class="tabs" role="tablist" id="tabs"></div>
-      <label class="search" for="q">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="搜尋題目或刊物，例如：新住民">
-      </label>
     </div>
     <div class="result-meta" id="meta"></div>
     <ol class="list" id="list"></ol>
@@ -630,14 +626,13 @@ const TABS = [["all","全部"],["journal","期刊論文"],["conf","研討會"],[
 const TYPE_LABEL = {journal:"期刊", conf:"研討會", proj:"計畫"};
 let state = {tab:"all", theme:null, q:""};
 const tabsEl=document.getElementById("tabs"),
-      listEl=document.getElementById("list"), metaEl=document.getElementById("meta"), qEl=document.getElementById("q");
+      listEl=document.getElementById("list"), metaEl=document.getElementById("meta");
 TABS.forEach(([k,label])=>{
   const b=document.createElement("button"); b.type="button"; b.setAttribute("role","tab"); b.id="tab-"+k;
   const n=k==="all"?WORKS.length:WORKS.filter(w=>w.type===k).length;
   b.innerHTML=(k==="all"?"":'<i class="dot d-'+k+'"></i>')+label+'<span class="c">'+n+'</span>';
   b.onclick=()=>{state.tab=k;render()}; tabsEl.appendChild(b);
 });
-qEl.addEventListener("input",()=>{state.q=qEl.value.trim().toLowerCase();render()});
 const PDF_ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>';
 function render(){
   tabsEl.querySelectorAll("button").forEach(b=>b.setAttribute("aria-selected", b.id==="tab-"+state.tab));
